@@ -5,6 +5,12 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    // Unused code fails lint. Checked here rather than with tsc's noUnused* options, which also flag Next's generated .next types.
+    rules: {
+      "@typescript-eslint/no-unused-vars": "error",
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
