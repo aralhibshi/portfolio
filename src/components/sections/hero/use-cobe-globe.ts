@@ -55,6 +55,23 @@ function arcsFor({ markets, home, active }: GlobeOptions, palette: Palette) {
     }));
 }
 
+/** Runs `task` once the page has loaded and the browser is idle. Returns a function that cancels it. */
+function whenIdleAfterLoad(task: () => void) {
+  let idleId: number | undefined;
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const schedule = () => {
+    if ("requestIdleCallback" in window) idleId = window.requestIdleCallback(task, { timeout: 1500 });
+    else timeoutId = setTimeout(task, 200); // Safari has no requestIdleCallback
+  };
+  if (document.readyState === "complete") schedule();
+  else window.addEventListener("load", schedule, { once: true });
+  return () => {
+    window.removeEventListener("load", schedule);
+    if (idleId !== undefined) window.cancelIdleCallback(idleId);
+    if (timeoutId !== undefined) clearTimeout(timeoutId);
+  };
+}
+
 /**
  * Drives a cobe WebGL globe: lazy-loads the library, eases the camera towards the active market, keeps
  * HTML markers projected onto it, supports dragging, and pauses whenever it's off-screen.
@@ -136,8 +153,10 @@ export function useCobeGlobe(options: GlobeOptions) {
     playRef.current = play;
     updateArcsRef.current = () => globe?.update({ arcs: arcsFor(optionsRef.current, palette) });
 
-    // Load the WebGL library only once the globe mounts, keeping it off the critical path.
-    import("cobe").then(({ default: createGlobe }) => {
+    // Creating the globe compiles WebGL shaders and builds the dot map: one long task. Wait until the page
+    // has loaded and the browser is idle, so it never competes with hydration or the first interactions.
+    const createWhenIdle = async () => {
+      const { default: createGlobe } = await import("cobe");
       if (cancelled) return;
       const size = container.offsetWidth; // CSS pixels; cobe applies devicePixelRatio itself
       globe = createGlobe(canvas, {
@@ -165,7 +184,8 @@ export function useCobeGlobe(options: GlobeOptions) {
       });
       setReady(true);
       play();
-    });
+    };
+    const cancelStart = whenIdleAfterLoad(createWhenIdle);
 
     const observer = new IntersectionObserver((entries) => {
       visible = entries.some((entry) => entry.isIntersecting);
@@ -183,6 +203,7 @@ export function useCobeGlobe(options: GlobeOptions) {
 
     return () => {
       cancelled = true;
+      cancelStart();
       cancelAnimationFrame(frame);
       observer.disconnect();
       resize.disconnect();

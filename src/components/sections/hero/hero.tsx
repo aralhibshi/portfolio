@@ -9,8 +9,8 @@ import {
 import { CountUp } from "@/components/shared/count-up";
 import { GridBackdrop } from "@/components/shared/grid-backdrop";
 import { LocalTime } from "@/components/sections/hero/local-time";
+import { Entrance } from "@/components/sections/hero/entrance";
 import { MarketsMap } from "@/components/sections/hero/markets-map";
-import { Reveal } from "@/components/shared/reveal";
 import { ScribbleUnderline } from "@/components/sections/hero/scribble-underline";
 import { SpotlightCard } from "@/components/shared/spotlight-card";
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,7 @@ export function Hero() {
       <div className="relative mx-auto max-w-6xl px-4 pt-16 pb-16 sm:px-6 md:pt-24 md:pb-24">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
           <div>
-            <Reveal>
+            <Entrance>
               <p className="bg-background/60 inline-flex items-center gap-2 border px-2.5 py-1 font-mono text-xs backdrop-blur">
                 <span className="relative flex size-2">
                   <span className="bg-brand absolute inline-flex size-full animate-ping rounded-full opacity-60 motion-reduce:animate-none" />
@@ -37,9 +37,9 @@ export function Hero() {
                 </span>
                 {profile.availability}
               </p>
-            </Reveal>
+            </Entrance>
 
-            <Reveal delay={0.05}>
+            <Entrance delay={0.05}>
               <h1 className="mt-8 text-4xl leading-[1.05] font-semibold tracking-tight text-balance sm:text-6xl">
                 {heroCopy.lead}{" "}
                 <span className="text-brand">
@@ -47,9 +47,9 @@ export function Hero() {
                 </span>
                 {heroCopy.tail}
               </h1>
-            </Reveal>
+            </Entrance>
 
-            <Reveal delay={0.1}>
+            <Entrance delay={0.1}>
               <p className="text-muted-foreground mt-8 font-mono text-sm text-balance">
                 {profile.role} · TypeScript · React Native · Node.js · AWS
               </p>
@@ -76,15 +76,15 @@ export function Hero() {
                   </a>
                 </Button>
               </div>
-            </Reveal>
+            </Entrance>
           </div>
 
-          <Reveal delay={0.2} className="mx-auto w-full max-w-sm lg:max-w-none">
+          <Entrance delay={0.2} className="mx-auto w-full max-w-sm lg:max-w-none">
             <MarketsMap />
-          </Reveal>
+          </Entrance>
         </div>
 
-        <Reveal delay={0.15}>
+        <Entrance delay={0.15}>
           <dl className="bg-border mt-14 grid grid-cols-2 gap-px border md:mt-20 md:grid-cols-4">
             {stats.map((stat) => (
               <SpotlightCard key={stat.label} className="flex flex-col-reverse justify-end gap-2 p-5 md:p-6">
@@ -95,7 +95,7 @@ export function Hero() {
               </SpotlightCard>
             ))}
           </dl>
-        </Reveal>
+        </Entrance>
 
         <a
           href="#about"
