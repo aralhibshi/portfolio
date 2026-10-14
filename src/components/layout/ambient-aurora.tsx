@@ -42,11 +42,13 @@ const NOISE =
 const READING_MASK =
   "linear-gradient(to right, black, rgb(0 0 0 / 0.8) 18%, rgb(0 0 0 / 0.5) 32%, rgb(0 0 0 / 0.5) 68%, rgb(0 0 0 / 0.8) 82%, black)";
 
+// Sized to the *large* viewport (100lvh) rather than inset-0: on iOS Safari the visible area grows as the
+// toolbar collapses while scrolling, and an inset-0 layer would leave an uncovered band at the bottom.
 export function AmbientAurora() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 hidden overflow-hidden dark:block"
+      className="pointer-events-none fixed inset-x-0 top-0 -z-10 hidden h-lvh overflow-hidden dark:block"
       style={{ opacity: "var(--aurora-opacity)", maskImage: READING_MASK, WebkitMaskImage: READING_MASK }}
     >
       {glows.map((glow, i) => (
