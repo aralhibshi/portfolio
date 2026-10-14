@@ -9,7 +9,8 @@ describe("CV metadata", () => {
     expect(Number.isNaN(Date.parse(cv.date))).toBe(false);
   });
 
-  it("builds the download filename from the date", () => {
-    expect(cvFileName).toBe(`${cv.date} - Ahmed Alhibshi - CV - Full-Stack Software Engineer.pdf`);
+  it("keeps the download filename stable and version-free", () => {
+    expect(cvFileName).toBe("Ahmed Alhibshi - CV - Full-Stack Software Engineer.pdf");
+    expect(cvFileName).not.toContain(cv.date);
   });
 });

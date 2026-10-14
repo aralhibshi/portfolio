@@ -1,10 +1,10 @@
-import { QuotesIcon } from "@phosphor-icons/react/ssr";
+import { ArrowUpRightIcon, LinkedinLogoIcon, QuotesIcon } from "@phosphor-icons/react/ssr";
 
 import { MarkerHighlight } from "@/components/sections/references/marker-highlight";
 import { Reveal } from "@/components/shared/reveal";
 import { Section } from "@/components/shared/section";
 import { SpotlightCard } from "@/components/shared/spotlight-card";
-import { testimonials, sectionCopy } from "@/content/site";
+import { profile, sectionCopy, testimonials } from "@/content/site";
 
 function HighlightedQuote({ quote, highlight }: { quote: string; highlight?: string }) {
   const at = highlight ? quote.indexOf(highlight) : -1;
@@ -55,6 +55,18 @@ export function References() {
           </Reveal>
         ))}
       </div>
+      <Reveal className="mt-8">
+        <a
+          href={profile.links.recommendations}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1.5 font-mono text-xs underline-offset-4 transition-colors hover:underline"
+        >
+          <LinkedinLogoIcon className="size-3.5" />
+          More recommendations on LinkedIn
+          <ArrowUpRightIcon className="size-3" />
+        </a>
+      </Reveal>
     </Section>
   );
 }

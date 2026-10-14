@@ -21,6 +21,7 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/aralhibshi",
     github: "https://github.com/aralhibshi",
     source: "https://github.com/aralhibshi/portfolio",
+    recommendations: "https://www.linkedin.com/in/aralhibshi/details/recommendations/",
   },
 } as const;
 
