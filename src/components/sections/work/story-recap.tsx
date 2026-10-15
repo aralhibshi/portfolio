@@ -90,12 +90,14 @@ export function StoryRecap({ className }: { className?: string }) {
       style={{
         background: STORY_BACKGROUND,
       }}
-      aria-label={`End-of-challenge recap, slide ${index + 1} of ${slides.length}: ${slide.title}. Activate for the next slide.`}
       className={cn(
         "relative flex aspect-[9/16] w-28 shrink-0 flex-col overflow-hidden rounded-xl p-2.5 text-left text-white shadow-[0_12px_24px_-16px_rgb(0_0_0/0.25)] ring-1 ring-black/10",
         className
       )}
     >
+      <span className="sr-only">
+        End-of-challenge recap, slide {index + 1} of {slides.length}.
+      </span>
       {/* Story progress segments */}
       <span className="flex gap-1" aria-hidden>
         {slides.map((s, i) => (
@@ -125,6 +127,7 @@ export function StoryRecap({ className }: { className?: string }) {
         <span className="font-mono text-[9px] text-white/80">{slide.title}</span>
         {slide.body}
       </motion.span>
+      <span className="sr-only">Activate for the next slide.</span>
     </button>
   );
 }

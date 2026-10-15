@@ -73,7 +73,6 @@ export function MarketsMap() {
                 <button
                   type="button"
                   aria-pressed={pinned === market.code}
-                  aria-label={`${market.name}: ${market.scope}`}
                   onClick={() => togglePin(market.code)}
                   onPointerEnter={(event) => event.pointerType === "mouse" && showPreview(market.code)}
                   // Keyboard focus only: a mouse click also focuses, which would stop a pinned market unpinning.
@@ -86,6 +85,9 @@ export function MarketsMap() {
                   )}
                 >
                   {market.code}
+                  <span className="sr-only">
+                    , {market.name}: {market.scope}
+                  </span>
                 </button>
               </li>
             );

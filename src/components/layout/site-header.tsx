@@ -52,6 +52,8 @@ export function SiteHeader() {
           <Button variant="outline" size="sm" className="font-mono" onClick={() => setMenuOpen(true)}>
             <CommandIcon className="lg:hidden" />
             <span className="lg:hidden">Menu</span>
+            {/* Desktop shows only the shortcut, so screen readers get a name alongside it. */}
+            <span className="sr-only max-lg:hidden">Command menu</span>
             <kbd className="text-muted-foreground hidden lg:inline">⌘K</kbd>
           </Button>
           <ThemeToggle />
