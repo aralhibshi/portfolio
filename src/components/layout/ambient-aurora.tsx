@@ -42,8 +42,14 @@ const NOISE =
 const READING_MASK =
   "linear-gradient(to right, black, rgb(0 0 0 / 0.8) 18%, rgb(0 0 0 / 0.5) 32%, rgb(0 0 0 / 0.5) 68%, rgb(0 0 0 / 0.8) 82%, black)";
 
-// Sized to the *large* viewport (100lvh) rather than inset-0: on iOS Safari the visible area grows as the
-// toolbar collapses while scrolling, and an inset-0 layer would leave an uncovered band at the bottom.
+// Sized to the *large* viewport (100lvh) rather than inset-0: mobile browsers resize the viewport as their
+// toolbar collapses and expands while scrolling, and an inset-0 layer lags behind, briefly leaving the
+// bottom of the screen without the glow.
+//
+// On touch devices the glow also fades out above the bottom edge. iOS Safari can't show the page behind its
+// floating toolbar; it stretches the page's bottom-edge colour down instead, so a glow reaching the edge
+// would end in a visible step. The fade is fully transparent by the small viewport's bottom (toolbar
+// expanded), so the edge is always the plain background in either toolbar state.
 export function AmbientAurora() {
   return (
     <div
@@ -51,14 +57,16 @@ export function AmbientAurora() {
       className="pointer-events-none fixed inset-x-0 top-0 -z-10 hidden h-lvh overflow-hidden dark:block"
       style={{ opacity: "var(--aurora-opacity)", maskImage: READING_MASK, WebkitMaskImage: READING_MASK }}
     >
-      {glows.map((glow, i) => (
-        <span
-          key={i}
-          className={`absolute rounded-full will-change-transform motion-reduce:animate-none ${glow.className}`}
-          style={{ background: glow.background }}
-        />
-      ))}
-      <span className="absolute inset-0 opacity-[0.06] mix-blend-overlay" style={{ backgroundImage: NOISE }} />
+      <div className="absolute inset-0 pointer-coarse:[mask-image:linear-gradient(to_bottom,black_calc(100svh_-_160px),transparent_100svh)]">
+        {glows.map((glow, i) => (
+          <span
+            key={i}
+            className={`absolute rounded-full will-change-transform motion-reduce:animate-none ${glow.className}`}
+            style={{ background: glow.background }}
+          />
+        ))}
+        <span className="absolute inset-0 opacity-[0.06] mix-blend-overlay" style={{ backgroundImage: NOISE }} />
+      </div>
     </div>
   );
 }

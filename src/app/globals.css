@@ -52,6 +52,7 @@
 
 :root {
   --background: oklch(0.985 0.004 85);
+  --browser-chrome: var(--background);
   --foreground: oklch(0.17 0.008 60);
   --brand: oklch(0.5 0.23 280);
   --brand-foreground: oklch(0.99 0 0);
@@ -89,6 +90,8 @@
 
 .dark {
   --background: oklch(0.155 0.006 270);
+  /* The dark background as seen through the grain and aurora (see body below). */
+  --browser-chrome: #111215;
   --foreground: oklch(0.96 0.004 85);
   --brand: oklch(0.73 0.15 285);
   --brand-foreground: oklch(0.16 0.02 285);
@@ -134,8 +137,28 @@
   * {
     @apply border-border outline-ring/50;
   }
+  /* Mobile Safari fills the area behind its toolbars with the body's background colour, but in dark mode
+     the page visitors see is lighter than --background, because the grain and aurora sit on top of it. So
+     the body carries the colour as seen (--browser-chrome), and a fixed layer behind the content paints the
+     real base colour. That layer is a background-image, not a background-color, because Safari also tints the
+     edge above its toolbar from fixed elements' background colours.
+     This layer, the grain below and the aurora are sized to the large viewport (100lvh), not inset: 0: mobile
+     browsers resize the viewport as their toolbar collapses and expands, and inset: 0 layers lag behind,
+     briefly leaving the bottom of the screen uncovered. */
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background-color: var(--browser-chrome);
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100lvh;
+    z-index: -20;
+    pointer-events: none;
+    background-image: linear-gradient(var(--background), var(--background));
   }
   html {
     @apply font-sans;
@@ -174,7 +197,10 @@
   body::after {
     content: "";
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100lvh;
     z-index: 60;
     pointer-events: none;
     opacity: 0.035;
