@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/aralhibshi/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/aralhibshi/portfolio/actions/workflows/ci.yml)
 
-**Live: [ahmedalhibshi.dev](https://www.ahmedalhibshi.dev)**
+**Live: [ahmedalhibshi.dev](https://ahmedalhibshi.dev)**
 
 Personal portfolio of a full-stack software engineer: experience, selected production work, references and skills, with interactive visuals that explain how each project worked. Built with Next.js 16, React 19 and Tailwind CSS v4, and deployed as a fully static site on Vercel.
 
@@ -89,4 +89,4 @@ The CV served by the site is [`public/ahmed-alhibshi-cv.pdf`](public/ahmed-alhib
 
 ## Deployment
 
-Vercel builds every push to `master`, and promotes it to production once CI passes. Vercel builds use the production address, `https://www.ahmedalhibshi.dev` (set in [`src/lib/site-url.ts`](src/lib/site-url.ts)), for canonical links, the sitemap and social previews; local builds use localhost, and `NEXT_PUBLIC_SITE_URL` overrides both.
+Vercel builds every push to `master`, and promotes it to production once CI passes. Vercel builds use the production address, `https://ahmedalhibshi.dev` (set in [`src/lib/site-url.ts`](src/lib/site-url.ts)), for canonical links, the sitemap and social previews; local builds use localhost, and `NEXT_PUBLIC_SITE_URL` overrides both.

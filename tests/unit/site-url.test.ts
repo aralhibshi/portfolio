@@ -11,7 +11,7 @@ describe("siteUrl", () => {
   afterEach(() => vi.unstubAllEnvs());
 
   it("uses the production domain on Vercel", async () => {
-    expect(await loadSiteUrl({ VERCEL: "1", NEXT_PUBLIC_SITE_URL: undefined })).toBe("https://www.ahmedalhibshi.dev");
+    expect(await loadSiteUrl({ VERCEL: "1", NEXT_PUBLIC_SITE_URL: undefined })).toBe("https://ahmedalhibshi.dev");
   });
 
   it("uses localhost for local builds", async () => {
