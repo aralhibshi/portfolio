@@ -14,8 +14,10 @@ test.describe("portfolio smoke test", () => {
     }
   });
 
-  test("command menu jumps to a section", async ({ page }) => {
-    await page.keyboard.press("ControlOrMeta+k");
+  test("command menu jumps to a section", async ({ page, isMobile }) => {
+    // Phones have no keyboard shortcut, so open it the way a visitor there would.
+    if (isMobile) await page.getByRole("button", { name: "Menu", exact: true }).click();
+    else await page.keyboard.press("ControlOrMeta+k");
     const menu = page.getByRole("dialog");
     await expect(menu).toBeVisible();
     await menu.getByPlaceholder(/type a command/i).fill("skills");
@@ -24,7 +26,7 @@ test.describe("portfolio smoke test", () => {
     await expect(page.locator("#skills")).toBeInViewport();
   });
 
-  test("downloads the CV with its dated filename", async ({ page }) => {
+  test("downloads the CV with its proper filename", async ({ page }) => {
     const [download] = await Promise.all([
       page.waitForEvent("download"),
       page.locator("#top").getByRole("link", { name: "Download CV" }).click(),
