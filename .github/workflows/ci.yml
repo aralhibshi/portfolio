@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   check:
+    name: Lint, test and build
     runs-on: ubuntu-24.04 # pinned: ubuntu-latest moves between releases
     timeout-minutes: 15
     steps:
