@@ -16,7 +16,7 @@ Personal portfolio of a full-stack software engineer: experience, selected produ
 - **Interactive project visuals.** A WebGL markets globe, a live migration pipeline, an age-ranged meal-sizing panel, a weight-projection chart with a story-style recap, and a feature-flag timeline, each explaining a real piece of work.
 - **Fully static and fast.** Every route is prerendered; JavaScript ships only for the interactive pieces.
 - **Accessible.** Keyboard and screen-reader equivalents for every interactive visual, and reduced-motion support throughout.
-- **Tested.** Vitest unit tests for the pure logic, Playwright end-to-end tests against the production build, and CI on every push.
+- **Tested.** Vitest unit tests for the pure logic, and Playwright end-to-end and automated accessibility (axe) tests against the production build at desktop and phone size, with CI on every push.
 
 **Stack:** Next.js 16 (App Router) · React 19 · TypeScript (strict) · Tailwind CSS v4 · shadcn/ui · Motion · cobe · Vitest · Playwright · GitHub Actions · Vercel
 
@@ -28,7 +28,7 @@ Personal portfolio of a full-stack software engineer: experience, selected produ
 - **Animation that degrades gracefully.** Motion respects the visitor's reduced-motion setting, and the migration pipeline is pure SVG animation with no JavaScript. The WebGL globe loads only after the page, and stops rendering when off-screen.
 - **Accessible by design.** Interactive visuals have keyboard and screen-reader equivalents (tabs, radio groups, live regions), and decorative layers are hidden from assistive tech.
 - **Strict typing.** `strict` plus `noUncheckedIndexedAccess`; no `any`, type casts or non-null assertions in application code.
-- **Quality gates.** Husky runs Prettier, ESLint, a type-check and the unit tests before every commit; CI on GitHub Actions lints, type-checks, runs the unit tests, builds, and runs the Playwright tests on every push and pull request.
+- **Quality gates.** Husky runs Prettier, ESLint, a type-check and the unit tests before every commit; CI on GitHub Actions checks formatting, lints, type-checks, runs the unit tests, builds, and runs the Playwright tests on every push and pull request.
 
 ## Project structure
 
@@ -76,7 +76,7 @@ npm run lint
 npm run compile    # type-check
 npm test           # Vitest unit tests
 npm run build
-npm run test:e2e   # Playwright tests against the production build
+npm run test:e2e   # Playwright and accessibility tests against the production build
 ```
 
 The end-to-end tests need a browser once: `npx playwright install chromium`. If a dev server is already on port 3000, run them on another port: `E2E_PORT=3123 npm run test:e2e`.
