@@ -143,7 +143,7 @@ export const flagship: Project = {
     "A distinct Kids experience across the whole app: its own onboarding, subscription settings and editing, resume and renewal flows, and Kids-specific animations and visuals",
     "Changes across ~12 platform-wide microservices so the food team could manage Kids meals, and CX and operations could support customers and prepare orders, down to kitchen invoice components",
     "Migrated existing subscribers onto the new model; later added meal customisation, with components unique to each age range",
-    "After the domain was split across the core squads, took over sunsetting it as a whole: ~5,000 subscribers, zero failures",
+    "Later took over sunsetting it as a whole: ~5,000 subscribers, zero failures",
   ],
   decisions: [
     "Sized meals by age range rather than the account holder's measurements, so portions were predictable and consistent across families.",
