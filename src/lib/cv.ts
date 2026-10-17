@@ -4,8 +4,8 @@
 // Kept dependency-free so next.config.ts can import it.
 export const cv = {
   path: "/ahmed-alhibshi-cv.pdf",
-  version: "1.0",
-  date: "2026-10-14",
+  version: "1.1",
+  date: "2026-10-17",
 } as const;
 
 // Stable download name; the version and date live in the PDF metadata and the X-CV-Version header instead.
