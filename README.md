@@ -67,7 +67,7 @@ tests/
 
 ## Development
 
-Requires Node.js 24.
+Requires Node.js 26 (LTS).
 
 ```bash
 npm install
